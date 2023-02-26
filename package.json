@@ -19,7 +19,7 @@
     "e2e": "playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.31.0",
+    "@playwright/test": "^1.31.1",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
-    "@far-more/web-ui": "^1.7.9",
+    "@far-more/web-ui": "^1.7.12",
     "@monaco-editor/react": "^4.4.6",
     "monaco-editor": "^0.36.0"
   }

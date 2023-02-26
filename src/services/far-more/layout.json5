@@ -11,42 +11,16 @@
           id: "panel2",
           type: "file-panel",
           flex: 1.6,
-          path: "file:///far-more.app/Many Files/",
+          path: "file:///",
           view: {
             type: "condensed",
             columnDef: { field: "name", name: "Name" },
             columnsCount: 3,
           },
         },
-        {
-          id: "row2",
-          type: "row",
-          children: [
-            {
-              id: "panel3",
-              type: "file-panel",
-              path: "file:///",
-              view: {
-                type: "condensed",
-                columnDef: { field: "name", name: "Name" },
-                columnsCount: 2,
-              },
-            },
-            {
-              id: "panel4",
-              type: "file-panel",
-              path: "far-more:/",
-              view: {
-                type: "condensed",
-                columnDef: { field: "name", name: "Name" },
-                columnsCount: 2,
-              },
-            },
-          ],
-        },
       ],
     },
-        {
+    {
       id: "col2",
       type: "row",
       children: [
