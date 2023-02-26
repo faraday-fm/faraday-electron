@@ -1,0 +1,74 @@
+// Application layout.
+{
+  id: "row1",
+  type: "row",
+  children: [
+    {
+      id: "col1",
+      type: "row",
+      children: [
+        {
+          id: "panel_1_1",
+          type: "file-panel",
+          flex: 1.6,
+          path: "file:/far-more.app",
+          view: {
+            type: "full",
+            columnDefs: [{ field: "name", name: "Name", width: "1fr" }, { field: "size", name: "Size" }],
+          },
+        },
+        {
+          id: "panel_1_2",
+          type: "quick-view",
+          flex: 1.6,
+          path: "far-more:/layout.json",
+          // path: "file:/far-more.app/README.md",
+        },
+      ],
+    },
+
+    {
+      id: "row2",
+      type: "row",
+      children: [
+        {
+          id: "panel2",
+          type: "file-panel",
+          flex: 1.6,
+          path: "file:/far-more.app/Many Files",
+          view: {
+            type: "condensed",
+            columnDef: { field: "name", name: "Name" },
+            columnsCount: 3,
+          },
+        },
+        {
+          id: "row3",
+          type: "row",
+          children: [
+            {
+              id: "panel3",
+              type: "file-panel",
+              path: "file:/",
+              view: {
+                type: "condensed",
+                columnDef: { field: "name", name: "Name" },
+                columnsCount: 2,
+              },
+            },
+            {
+              id: "panel4",
+              type: "file-panel",
+              path: "far-more:/",
+              view: {
+                type: "condensed",
+                columnDef: { field: "name", name: "Name" },
+                columnsCount: 2,
+              },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
