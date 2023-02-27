@@ -8,10 +8,20 @@ export function initFsHook() {
       case "watch":
         return 0;
       case "readDirectory":
-        const entries = fs.readdirSync(new URL(operation.url).pathname);
+        const entries = fs.readdirSync(
+          decodeURI(new URL(operation.url).pathname)
+        );
         return entries.map((e) => {
           try {
-            const stat = fs.statSync(new URL(e, operation.url).pathname);
+            let stat = fs.statSync(
+              decodeURI(new URL(e, operation.url).pathname)
+            );
+            if (stat.isFile() && stat.isSymbolicLink()) {
+              const link = fs.readlinkSync(
+                decodeURI(new URL(e, operation.url).pathname)
+              );
+              stat = fs.statSync(link);
+            }
             return {
               name: e,
               isDir: stat.isDirectory(),
@@ -29,28 +39,31 @@ export function initFsHook() {
           }
         });
       case "createDirectory":
-        fs.mkdirSync(new URL(operation.url).pathname);
+        fs.mkdirSync(decodeURI(new URL(operation.url).pathname));
         break;
       case "readFile":
-        return fs.readFileSync(new URL(operation.url).pathname);
+        return fs.readFileSync(decodeURI(new URL(operation.url).pathname));
       case "writeFile":
-        fs.writeFileSync(new URL(operation.url).pathname, operation.content);
+        fs.writeFileSync(
+          decodeURI(new URL(operation.url).pathname),
+          operation.content
+        );
         break;
       case "delete":
-        fs.rmSync(new URL(operation.url).pathname, {
+        fs.rmSync(decodeURI(new URL(operation.url).pathname), {
           recursive: operation.options.recursive,
         });
         break;
       case "rename":
         fs.renameSync(
-          new URL(operation.oldUrl).pathname,
-          new URL(operation.newUrl).pathname
+          decodeURI(new URL(operation.oldUrl).pathname),
+          decodeURI(new URL(operation.newUrl).pathname)
         );
         break;
       case "copy":
         fs.cpSync(
-          new URL(operation.source).pathname,
-          new URL(operation.destination).pathname
+          decodeURI(new URL(operation.source).pathname),
+          decodeURI(new URL(operation.destination).pathname)
         );
     }
   });
