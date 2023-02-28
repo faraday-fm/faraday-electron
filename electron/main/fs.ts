@@ -34,35 +34,40 @@ export function initFsHook() {
         case "watch":
           return 0;
         case "readDirectory":
-          const entries = fs.readdirSync(getPath(operation.url));
-          const result = entries.map((e) => {
-            try {
-              let stat = fs.statSync(
-                decodeURI(new URL(e, operation.url).pathname)
-              );
-              if (stat.isFile() && stat.isSymbolicLink()) {
-                const link = fs.readlinkSync(
+          fs.readdir(getPath(operation.url), (err, files) => {
+            if (err) {
+              finishOp(sender, id, err, null);
+              return;
+            }
+            const result = files.map((e) => {
+              try {
+                let stat = fs.statSync(
                   decodeURI(new URL(e, operation.url).pathname)
                 );
-                stat = fs.statSync(link);
+                if (stat.isFile() && stat.isSymbolicLink()) {
+                  const link = fs.readlinkSync(
+                    decodeURI(new URL(e, operation.url).pathname)
+                  );
+                  stat = fs.statSync(link);
+                }
+                return {
+                  name: e,
+                  isDir: stat.isDirectory(),
+                  isFile: stat.isFile(),
+                  isSymlink: stat.isSymbolicLink(),
+                  accessed: stat.atimeMs,
+                  created: stat.ctimeMs,
+                  modified: stat.mtimeMs,
+                  size: stat.size,
+                } as FsEntry;
+              } catch (err) {
+                return {
+                  name: e,
+                } as FsEntry;
               }
-              return {
-                name: e,
-                isDir: stat.isDirectory(),
-                isFile: stat.isFile(),
-                isSymlink: stat.isSymbolicLink(),
-                accessed: stat.atimeMs,
-                created: stat.ctimeMs,
-                modified: stat.mtimeMs,
-                size: stat.size,
-              } as FsEntry;
-            } catch (err) {
-              return {
-                name: e,
-              } as FsEntry;
-            }
+            });
+            finishOp(sender, id, null, result);
           });
-          finishOp(sender, id, null, result);
           break;
         case "createDirectory":
           fs.mkdir(getPath(operation.url), (err) => finishOp(sender, id, err));
