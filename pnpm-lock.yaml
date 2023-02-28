@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@faker-js/faker': ^7.6.0
-  '@far-more/web-ui': ^1.7.14
+  '@far-more/web-ui': ^1.7.15
   '@monaco-editor/react': ^4.4.6
   '@playwright/test': ^1.31.1
   '@types/react': ^18.0.28
@@ -22,7 +22,7 @@ specifiers:
 
 dependencies:
   '@faker-js/faker': 7.6.0
-  '@far-more/web-ui': 1.7.14_wkgbi54btsxvo5wjc3crn6xe3i
+  '@far-more/web-ui': 1.7.15_wkgbi54btsxvo5wjc3crn6xe3i
   '@monaco-editor/react': 4.4.6_7pqy4hbxfi3nllat5cyr464kqi
   monaco-editor: 0.36.0
 
@@ -556,8 +556,8 @@ packages:
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
     dev: false
 
-  /@far-more/web-ui/1.7.14_wkgbi54btsxvo5wjc3crn6xe3i:
-    resolution: {integrity: sha512-rNwdqV58db34iYrIPKY5im7NlU6P5NgLSmRzF089vh4b+HIGmgsr75nQSpa6G+n06X6J0Da/8eJhoRQzifyAcA==}
+  /@far-more/web-ui/1.7.15_wkgbi54btsxvo5wjc3crn6xe3i:
+    resolution: {integrity: sha512-Jcp6unHrU67cXJM5+aBEb06nF7+hPB0VCs4gQD8rAZ5hr8BM50M98KtrIyspbYPHlrQ4SD9gIXF0NhqHHVaPTA==}
     peerDependencies:
       '@monaco-editor/react': ^4.4.6
       react: '>=18'
