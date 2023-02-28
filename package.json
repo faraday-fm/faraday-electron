@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
-    "@far-more/web-ui": "^1.7.15",
+    "@far-more/web-ui": "^1.7.16",
     "@monaco-editor/react": "^4.4.6",
     "monaco-editor": "^0.36.0"
   }

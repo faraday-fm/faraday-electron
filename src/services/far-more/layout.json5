@@ -15,7 +15,6 @@
           view: {
             type: "condensed",
             columnDef: { field: "name", name: "Name" },
-            columnsCount: 3,
           },
         },
       ],
