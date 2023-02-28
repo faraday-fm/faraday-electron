@@ -1,70 +1,107 @@
 import { FsEntry } from "@far-more/web-ui";
-import { ipcMain } from "electron";
+import { ipcMain, WebContents } from "electron";
 import fs from "fs";
 
+function getPath(url: string) {
+  return decodeURI(new URL(url).pathname);
+}
+
+const pendingOperations = new Map<number, AbortController>();
+
+function startOp(id: number) {
+  const controller = new AbortController();
+  pendingOperations.set(id, controller);
+  return controller.signal;
+}
+
+function finishOp(
+  sender: WebContents,
+  id: number,
+  err: unknown,
+  data?: unknown
+) {
+  pendingOperations.delete(id);
+  sender.send("fs.result", { id, err, data });
+}
+
 export function initFsHook() {
-  ipcMain.handle("fs", (_, operation: FsOperation) => {
-    switch (operation.cmd) {
-      case "watch":
-        return 0;
-      case "readDirectory":
-        const entries = fs.readdirSync(
-          decodeURI(new URL(operation.url).pathname)
-        );
-        return entries.map((e) => {
-          try {
-            let stat = fs.statSync(
-              decodeURI(new URL(e, operation.url).pathname)
-            );
-            if (stat.isFile() && stat.isSymbolicLink()) {
-              const link = fs.readlinkSync(
+  ipcMain.on(
+    "fs",
+    (e, { id, operation }: { id: number; operation: FsOperation }) => {
+      const sender = e.sender;
+      const signal = startOp(id);
+      switch (operation.cmd) {
+        case "watch":
+          return 0;
+        case "readDirectory":
+          const entries = fs.readdirSync(getPath(operation.url));
+          const result = entries.map((e) => {
+            try {
+              let stat = fs.statSync(
                 decodeURI(new URL(e, operation.url).pathname)
               );
-              stat = fs.statSync(link);
+              if (stat.isFile() && stat.isSymbolicLink()) {
+                const link = fs.readlinkSync(
+                  decodeURI(new URL(e, operation.url).pathname)
+                );
+                stat = fs.statSync(link);
+              }
+              return {
+                name: e,
+                isDir: stat.isDirectory(),
+                isFile: stat.isFile(),
+                isSymlink: stat.isSymbolicLink(),
+                accessed: stat.atimeMs,
+                created: stat.ctimeMs,
+                modified: stat.mtimeMs,
+                size: stat.size,
+              } as FsEntry;
+            } catch (err) {
+              return {
+                name: e,
+              } as FsEntry;
             }
-            return {
-              name: e,
-              isDir: stat.isDirectory(),
-              isFile: stat.isFile(),
-              isSymlink: stat.isSymbolicLink(),
-              accessed: stat.atimeMs,
-              created: stat.ctimeMs,
-              modified: stat.mtimeMs,
-              size: stat.size,
-            } as FsEntry;
-          } catch (err) {
-            return {
-              name: e,
-            } as FsEntry;
-          }
-        });
-      case "createDirectory":
-        fs.mkdirSync(decodeURI(new URL(operation.url).pathname));
-        break;
-      case "readFile":
-        return fs.readFileSync(decodeURI(new URL(operation.url).pathname));
-      case "writeFile":
-        fs.writeFileSync(
-          decodeURI(new URL(operation.url).pathname),
-          operation.content
-        );
-        break;
-      case "delete":
-        fs.rmSync(decodeURI(new URL(operation.url).pathname), {
-          recursive: operation.options.recursive,
-        });
-        break;
-      case "rename":
-        fs.renameSync(
-          decodeURI(new URL(operation.oldUrl).pathname),
-          decodeURI(new URL(operation.newUrl).pathname)
-        );
-        break;
-      case "copy":
-        fs.cpSync(
-          decodeURI(new URL(operation.source).pathname),
-          decodeURI(new URL(operation.destination).pathname)
-        );
+          });
+          finishOp(sender, id, null, result);
+          break;
+        case "createDirectory":
+          fs.mkdir(getPath(operation.url), (err) => finishOp(sender, id, err));
+          break;
+        case "readFile":
+          fs.readFile(getPath(operation.url), { signal }, (err, data) =>
+            finishOp(sender, id, err, data)
+          );
+          break;
+        case "writeFile":
+          fs.writeFile(
+            getPath(operation.url),
+            operation.content,
+            { signal },
+            (err) => finishOp(sender, id, err)
+          );
+          break;
+        case "delete":
+          fs.rm(getPath(operation.url), operation.options, (err) =>
+            finishOp(sender, id, err)
+          );
+          break;
+        case "rename":
+          fs.rename(
+            getPath(operation.oldUrl),
+            getPath(operation.newUrl),
+            (err) => finishOp(sender, id, err)
+          );
+          break;
+        case "copy":
+          fs.cp(
+            getPath(operation.source),
+            getPath(operation.destination),
+            (err) => finishOp(sender, id, err)
+          );
+      }
     }
+  );
+  ipcMain.on("fs.abort", (_, id) => {
+    pendingOperations.get(id)?.abort();
   });
 }

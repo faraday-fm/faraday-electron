@@ -8,7 +8,7 @@
       type: "row",
       children: [
         {
-          id: "panel2",
+          id: "panel1",
           type: "file-panel",
           flex: 1.6,
           path: "file:///",
@@ -24,11 +24,18 @@
       type: "row",
       children: [
         {
-          id: "panel1",
-          type: "quick-view",
+          id: "panel2",
+          type: "file-panel",
           flex: 1.6,
-          path: "far-more:/layout.json",
-          // path: "file:///far-more.app/README.md",
+          path: "file:///Users/mike/",
+          view: {
+            type: "condensed",
+            columnDef: { field: "name", name: "Name" },
+          },
+        },
+        {
+          id: "panel3",
+          type: "quick-view",
         },
       ],
     },

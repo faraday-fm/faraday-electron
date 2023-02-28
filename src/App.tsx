@@ -1,7 +1,6 @@
 import { FarMore, FarMoreHost, createInMemoryFs } from "@far-more/web-ui";
 import { buildFarMoreFs } from "./services/fs";
-
-console.log("***");
+import { localFs } from "./services/localFs";
 
 const farMoreFs = createInMemoryFs();
 buildFarMoreFs(farMoreFs);
@@ -11,7 +10,7 @@ const host: FarMoreHost = {
     isDesktop: () => false,
   },
   farMoreFs,
-  rootFs: (window as any).api.fs,
+  rootFs: localFs,
 };
 
 function App() {

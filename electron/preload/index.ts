@@ -1,91 +1,49 @@
-import {
-  Disposable,
-  FileChangeEvent,
-  FileSystemProvider,
-  FsEntry,
-} from "@far-more/web-ui";
 import { contextBridge, ipcRenderer } from "electron";
 
-function invokeFsOp(op: FsOperation) {
-  return ipcRenderer.invoke("fs", op);
+const pendingOperations = new Map<
+  number,
+  (val: { err: unknown; data: unknown }) => void
+>();
+
+async function invokeFsOp<TResult>(
+  id: number,
+  operation: FsOperation
+): Promise<TResult> {
+  ipcRenderer.send("fs", { id, operation });
+  let cb: (value: { err: unknown; data: unknown }) => void;
+  const promise = new Promise<{ err: unknown; data: unknown }>((res) => {
+    cb = res;
+  });
+  pendingOperations.set(id, cb);
+  const { err, data } = await promise;
+  if (err) {
+    throw err;
+  } else {
+    return data as TResult;
+  }
 }
 
-const localFs: FileSystemProvider = {
-  watch(
-    url: string,
-    listener: (events: FileChangeEvent[]) => void,
-    options: { recursive: boolean; excludes: string[] }
-  ): Disposable {
-    const watchIdPromise = invokeFsOp({ cmd: "watch", url, options });
-    const l = (_, events: FileChangeEvent[]) => listener(events);
-    watchIdPromise.then((watchId) => ipcRenderer.on("fs.watch." + watchId, l));
-    return {
-      dispose() {
-        watchIdPromise.then((watchId) => {
-          ipcRenderer.off("fs.watch." + watchId, l);
-          invokeFsOp({ cmd: "watch.stop", watchId });
-        });
-      },
-    };
+ipcRenderer.on("fs.result", (e, { id, err, data }) => {
+  const op = pendingOperations.get(id);
+  if (op !== undefined) {
+    op({ err, data });
+  }
+});
+
+let opCounter = 1;
+
+const localFs = {
+  startOperation(id: number, operation: FsOperation) {
+    ipcRenderer.send("fs", { id, operation });
   },
-  readDirectory(
-    url: string,
-    signal?: AbortSignal
-  ): FsEntry[] | Promise<FsEntry[]> {
-    return invokeFsOp({ cmd: "readDirectory", url });
+  abortOperation(id: number) {
+    ipcRenderer.send("fs.abort", id);
   },
-  createDirectory(url: string, signal?: AbortSignal): void | Promise<void> {
-    return invokeFsOp({ cmd: "createDirectory", url });
-  },
-  readFile(
-    url: string,
-    signal?: AbortSignal
-  ): Uint8Array | Promise<Uint8Array> {
-    return invokeFsOp({ cmd: "readFile", url });
-  },
-  writeFile(
-    url: string,
-    content: Uint8Array,
-    options: { create: boolean; overwrite: boolean },
-    signal?: AbortSignal
-  ): void | Promise<void> {
-    return invokeFsOp({ cmd: "writeFile", url, content, options });
-  },
-  delete(
-    url: string,
-    options: { recursive: boolean },
-    signal?: AbortSignal
-  ): void | Promise<void> {
-    return invokeFsOp({ cmd: "delete", url, options });
-  },
-  rename(
-    oldUrl: string,
-    newUrl: string,
-    options: { overwrite: boolean },
-    signal?: AbortSignal
-  ): void | Promise<void> {
-    return invokeFsOp({
-      cmd: "rename",
-      oldUrl: oldUrl,
-      newUrl: newUrl,
-      options,
-    });
-  },
-  copy(
-    source: string,
-    destination: string,
-    options: { overwrite: boolean },
-    signal?: AbortSignal
-  ): void | Promise<void> {
-    return invokeFsOp({
-      cmd: "copy",
-      source,
-      destination,
-      options,
-    });
+  onOperationComplete(
+    callback: (args: { id: number; err: any; data: any }) => void
+  ) {
+    ipcRenderer.on("fs.result", (e, args) => callback(args));
   },
 };
 
-contextBridge.exposeInMainWorld("api", {
-  fs: localFs,
-});
+contextBridge.exposeInMainWorld("localFsApi", localFs);
