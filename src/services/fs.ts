@@ -6,7 +6,7 @@ import settings from "./far-more/settings.json5?raw";
 const encoder = new TextEncoder();
 
 function file(fs: FileSystemProvider, name: string, content: string) {
-  fs.writeFile(new URL("far-more:" + name), encoder.encode(content), {
+  fs.writeFile("far-more:" + name, encoder.encode(content), {
     create: true,
     overwrite: false,
   });
