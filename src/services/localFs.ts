@@ -1,9 +1,4 @@
-import {
-  Disposable,
-  FileChangeEvent,
-  FileSystemProvider,
-  FsEntry,
-} from "@far-more/web-ui";
+import { FileChangeEvent, FileSystemProvider, FsEntry } from "@far-more/web-ui";
 
 type LocalFsApi = {
   startOperation(id: number, operation: FsOperation): void;
@@ -57,8 +52,12 @@ export const localFs: FileSystemProvider = {
   watch(
     url: string,
     listener: (events: FileChangeEvent[]) => void,
-    options: { recursive: boolean; excludes: string[] }
-  ): Disposable {
+    options: {
+      recursive: boolean;
+      excludes: string[];
+      signal?: AbortSignal | undefined;
+    }
+  ) {
     throw new Error("Method not implemented.");
   },
   readDirectory(
@@ -79,44 +78,44 @@ export const localFs: FileSystemProvider = {
   writeFile(
     url: string,
     content: Uint8Array,
-    options: { create: boolean; overwrite: boolean },
-    signal?: AbortSignal
+    options: { create: boolean; overwrite: boolean; signal?: AbortSignal }
   ): void | Promise<void> {
     return invokeFsOp(
       nextId++,
       { cmd: "writeFile", url, content, options },
-      signal
+      options.signal
     );
   },
   delete(
     url: string,
-    options: { recursive: boolean },
-    signal?: AbortSignal
+    options: { recursive: boolean; signal?: AbortSignal }
   ): void | Promise<void> {
-    return invokeFsOp(nextId++, { cmd: "delete", url, options }, signal);
+    return invokeFsOp(
+      nextId++,
+      { cmd: "delete", url, options },
+      options.signal
+    );
   },
   rename(
     oldUrl: string,
     newUrl: string,
-    options: { overwrite: boolean },
-    signal?: AbortSignal
+    options: { overwrite: boolean; signal?: AbortSignal }
   ): void | Promise<void> {
     return invokeFsOp(
       nextId++,
       { cmd: "rename", oldUrl, newUrl, options },
-      signal
+      options.signal
     );
   },
   copy(
     source: string,
     destination: string,
-    options: { overwrite: boolean },
-    signal?: AbortSignal
+    options: { overwrite: boolean; signal?: AbortSignal }
   ): void | Promise<void> {
     return invokeFsOp(
       nextId++,
       { cmd: "copy", source, destination, options },
-      signal
+      options.signal
     );
   },
 };

@@ -16,7 +16,12 @@ export default defineConfig(({ command }) => {
   return {
     optimizeDeps: command === "serve" && { exclude: ["@far-more/web-ui"] },
     resolve: command === "serve" && {
-      alias: { "@far-more/web-ui": "../../web-ui/dist/far-more-web.esm.js" },
+      alias: {
+        "@far-more/web-ui": path.join(
+          __dirname,
+          "../web-ui/dist/far-more-web.esm.js"
+        ),
+      },
     },
     plugins: [
       react(),

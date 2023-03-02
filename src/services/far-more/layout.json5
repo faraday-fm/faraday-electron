@@ -32,10 +32,12 @@
             type: "condensed",
             columnDef: { field: "name", name: "Name" },
           },
+          // when: "quickView.visible",
         },
         {
           id: "panel3",
           type: "quick-view",
+          // when: "filePanel.firstItem",
         },
       ],
     },
