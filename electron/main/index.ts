@@ -47,6 +47,7 @@ async function createWindow() {
   win = new BrowserWindow({
     title: "Far More",
     icon: join(process.env.PUBLIC, "favicon.ico"),
+    backgroundColor: "rgb(7, 54, 66)",
     webPreferences: {
       preload,
     },
