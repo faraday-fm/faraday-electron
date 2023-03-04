@@ -1,12 +1,5 @@
 import { FileChangeEvent, FileSystemProvider, FsEntry } from "@far-more/web-ui";
-
-type LocalFsApi = {
-  startOperation(id: number, operation: FsOperation): void;
-  abortOperation(id: number): void;
-  onOperationComplete(
-    callback: (args: { id: number; err: any; data: any }) => void
-  ): void;
-};
+import { FsOperation, LocalFsApi } from "types/shared";
 
 const localFsApi = (window as any).localFsApi as LocalFsApi;
 
@@ -14,6 +7,8 @@ const pendingOperations = new Map<
   number,
   (val: { err: unknown; data: unknown }) => void
 >();
+
+const watchers = new Map<number, (events: FileChangeEvent[]) => void>();
 
 async function invokeFsOp<TResult>(
   id: number,
@@ -46,10 +41,14 @@ localFsApi.onOperationComplete(({ id, err, data }) => {
   pendingOperations.get(id)?.({ err, data });
 });
 
+localFsApi.onFsEvent(({ id, events }) => {
+  watchers.get(id)?.(events);
+});
+
 let nextId = 0;
 
 export const localFs: FileSystemProvider = {
-  watch(
+  async watch(
     url: string,
     listener: (events: FileChangeEvent[]) => void,
     options: {
@@ -58,7 +57,10 @@ export const localFs: FileSystemProvider = {
       signal?: AbortSignal | undefined;
     }
   ) {
-    throw new Error("Method not implemented.");
+    const id = nextId++;
+    watchers.set(id, listener);
+    await invokeFsOp(id, { cmd: "watch", url, options }, options.signal);
+    watchers.delete(id);
   },
   readDirectory(
     url: string,

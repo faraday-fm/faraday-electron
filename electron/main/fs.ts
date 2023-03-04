@@ -1,6 +1,8 @@
-import { FsEntry } from "@far-more/web-ui";
+import { FileChangeEvent, FileChangeType, FsEntry } from "@far-more/web-ui";
+import chokidar from "chokidar";
 import { ipcMain, WebContents } from "electron";
 import fs from "fs";
+import { FsOperation } from "types/shared";
 
 function getPath(url: string) {
   return decodeURI(new URL(url).pathname);
@@ -24,6 +26,26 @@ function finishOp(
   sender.send("fs.result", { id, err, data });
 }
 
+function eventNameToFileChangeType(
+  eventName: "add" | "addDir" | "change" | "unlink" | "unlinkDir"
+): FileChangeType {
+  switch (eventName) {
+    case "add":
+    case "addDir":
+      return "created";
+    case "unlink":
+    case "unlinkDir":
+      return "deleted";
+    case "change":
+      return "changed";
+  }
+}
+
+function getEntryName(url: URL | string) {
+  const path = typeof url === "string" ? url : url.pathname;
+  return path.substring(path.lastIndexOf("/") + 1);
+}
+
 export function initFsHook() {
   ipcMain.on(
     "fs",
@@ -32,11 +54,58 @@ export function initFsHook() {
       const signal = startOp(id);
       switch (operation.cmd) {
         case "watch":
-          return 0;
+          const changesListener = (
+            eventName: "add" | "addDir" | "change" | "unlink" | "unlinkDir",
+            path: string,
+            stats?: fs.Stats
+          ): void => {
+            const ev: FileChangeEvent = {
+              type: eventNameToFileChangeType(eventName),
+              url: path,
+              entry: {
+                name: path,
+                size: stats?.size,
+                isDir: stats?.isDirectory(),
+                isFile: stats?.isFile(),
+              },
+            };
+            // console.error(ev);
+            sender.send("fs.event", { id, events: [ev] });
+          };
+
+          const readyListener = (): void => {
+            sender.send("fs.event", {
+              id,
+              events: [{ type: "ready" } as FileChangeEvent],
+            });
+          };
+
+          const watcher = chokidar.watch(getPath(operation.url) + "*", {
+            depth: operation.options.recursive ? undefined : 0,
+            ignored: operation.options.excludes,
+            alwaysStat: true,
+            cwd: getPath(operation.url),
+            persistent: true,
+            // awaitWriteFinish: true,
+            // followSymlinks: false,
+            usePolling: true,
+          });
+          signal.addEventListener(
+            "abort",
+            () => {
+              watcher.close();
+              finishOp(sender, id, undefined, undefined);
+            },
+            { once: true }
+          );
+          watcher.on("all", changesListener);
+          watcher.on("ready", readyListener);
+          watcher.on("error", (err) => console.error(err));
+          break;
         case "readDirectory":
           fs.readdir(getPath(operation.url), (err, files) => {
             if (err) {
-              finishOp(sender, id, err, null);
+              finishOp(sender, id, err, undefined);
               return;
             }
             const result = files.map((e) => {
@@ -66,7 +135,7 @@ export function initFsHook() {
                 } as FsEntry;
               }
             });
-            finishOp(sender, id, null, result);
+            finishOp(sender, id, undefined, result);
           });
           break;
         case "createDirectory":

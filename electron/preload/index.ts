@@ -1,38 +1,8 @@
+import { FileChangeEvent } from "@far-more/web-ui";
 import { contextBridge, ipcRenderer } from "electron";
+import { FsOperation, LocalFsApi } from "types/shared";
 
-const pendingOperations = new Map<
-  number,
-  (val: { err: unknown; data: unknown }) => void
->();
-
-async function invokeFsOp<TResult>(
-  id: number,
-  operation: FsOperation
-): Promise<TResult> {
-  ipcRenderer.send("fs", { id, operation });
-  let cb: (value: { err: unknown; data: unknown }) => void;
-  const promise = new Promise<{ err: unknown; data: unknown }>((res) => {
-    cb = res;
-  });
-  pendingOperations.set(id, cb);
-  const { err, data } = await promise;
-  if (err) {
-    throw err;
-  } else {
-    return data as TResult;
-  }
-}
-
-ipcRenderer.on("fs.result", (e, { id, err, data }) => {
-  const op = pendingOperations.get(id);
-  if (op !== undefined) {
-    op({ err, data });
-  }
-});
-
-let opCounter = 1;
-
-const localFs = {
+const localFs: LocalFsApi = {
   startOperation(id: number, operation: FsOperation) {
     ipcRenderer.send("fs", { id, operation });
   },
@@ -42,7 +12,12 @@ const localFs = {
   onOperationComplete(
     callback: (args: { id: number; err: any; data: any }) => void
   ) {
-    ipcRenderer.on("fs.result", (e, args) => callback(args));
+    ipcRenderer.on("fs.result", (_, args) => callback(args));
+  },
+  onFsEvent(
+    callback: (args: { id: number; events: FileChangeEvent[] }) => void
+  ) {
+    ipcRenderer.on("fs.event", (_, args) => callback(args));
   },
 };
 

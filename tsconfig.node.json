@@ -5,7 +5,7 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["./types/shared"]
+    "baseUrl": "./"
   },
-  "include": ["vite.config.ts", "package.json", "electron"]
+  "include": ["types", "vite.config.ts", "package.json", "electron"]
 }
