@@ -2,14 +2,16 @@ import { FarMore, FarMoreHost } from "@far-more/web-ui";
 import { buildFarMoreFs } from "./services/fs";
 import { localFs } from "./services/localFs";
 
-const farMoreFs = buildFarMoreFs();
+// const farMoreFs = buildFarMoreFs();
 
 const host: FarMoreHost = {
   config: {
     isDesktop: () => false,
   },
-  farMoreFs,
-  rootFs: localFs,
+  farMoreFs: localFs(
+    "/Users/mike/github/far-more/far-more-electron/src/assets/"
+  ),
+  rootFs: localFs("/"),
 };
 
 function App() {

@@ -62,6 +62,9 @@ export function initFsApi() {
                 size: stats?.size,
                 isDir: stats?.isDirectory(),
                 isFile: stats?.isFile(),
+                accessed: stats?.atimeMs,
+                created: stats?.ctimeMs,
+                modified: stats?.mtimeMs,
               },
             };
             // console.error(ev);

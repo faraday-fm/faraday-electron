@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@far-more/web-ui': ^1.10.13
+  '@far-more/web-ui': ^1.10.15
   '@monaco-editor/react': ^4.4.6
   '@playwright/test': ^1.31.2
   '@types/react': ^18.0.28
@@ -23,7 +23,7 @@ specifiers:
   vite-plugin-electron-renderer: ^0.12.1
 
 dependencies:
-  '@far-more/web-ui': 1.10.13_wkgbi54btsxvo5wjc3crn6xe3i
+  '@far-more/web-ui': 1.10.15_wkgbi54btsxvo5wjc3crn6xe3i
   '@monaco-editor/react': 4.4.6_waewrrayshn643ztij6zbniufy
   chokidar: 3.5.3
   electron-store: 8.1.0
@@ -753,8 +753,8 @@ packages:
     dev: true
     optional: true
 
-  /@far-more/web-ui/1.10.13_wkgbi54btsxvo5wjc3crn6xe3i:
-    resolution: {integrity: sha512-3RjMM1ouf6YNdjuOlXxfGIpiC8HCvDlzwU5RfdxfE1UyACNYFB7fTYa4vuua5mLKoaX2fEkBk/4kk3c6At2eyg==}
+  /@far-more/web-ui/1.10.15_wkgbi54btsxvo5wjc3crn6xe3i:
+    resolution: {integrity: sha512-OnljNSQuKsuYw4TRU8JmETgawo6DD9lPLzFhK7kpLFxbl2X6g8qncA6CcGWa2k08kpS0iiGtC6Tp5th7KdCZVw==}
     peerDependencies:
       '@monaco-editor/react': ^4.4.6
       react: '>=18'
