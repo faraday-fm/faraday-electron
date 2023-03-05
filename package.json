@@ -39,9 +39,10 @@
     "node": "^14.18.0 || >=16.0.0"
   },
   "dependencies": {
-    "@far-more/web-ui": "^1.10.10",
+    "@far-more/web-ui": "^1.10.13",
     "@monaco-editor/react": "^4.4.6",
     "chokidar": "^3.5.3",
+    "electron-store": "^8.1.0",
     "monaco-editor": "^0.36.1"
   }
 }

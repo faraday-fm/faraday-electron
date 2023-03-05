@@ -41,7 +41,7 @@ function eventNameToFileChangeType(
   }
 }
 
-export function initFsHook() {
+export function initFsApi() {
   ipcMain.on(
     "fs",
     (e, { id, operation }: { id: number; operation: FsOperation }) => {
@@ -75,11 +75,13 @@ export function initFsHook() {
             });
           };
 
-          const watcher = chokidar.watch(getPath(operation.path) + "/*", {
+          const path = getPath(operation.path);
+          const isDir = fs.statSync(path).isDirectory();
+          const watcher = chokidar.watch(isDir ? path + "/*" : path, {
             depth: operation.options.recursive ? undefined : 0,
             ignored: operation.options.excludes,
             alwaysStat: true,
-            cwd: getPath(operation.path),
+            cwd: path,
             persistent: true,
             // awaitWriteFinish: true,
             // followSymlinks: false,

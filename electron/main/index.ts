@@ -1,7 +1,8 @@
-import { app, BrowserWindow, shell, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, Rectangle } from "electron";
+import Store from "electron-store";
 import { release } from "node:os";
 import { join } from "node:path";
-import { initFsHook } from "./fs";
+import { initFsApi } from "./fs";
 
 // The built directory structure
 //
@@ -41,17 +42,33 @@ const preload = join(__dirname, "../preload/index.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 
-initFsHook();
+initFsApi();
+const store = new Store();
 
 async function createWindow() {
+  const bounds = store.get("bounds") as Rectangle | undefined;
+  const fullscreen = store.get("fullscreen") as boolean | undefined;
   win = new BrowserWindow({
     title: "Far More",
     icon: join(process.env.PUBLIC, "favicon.ico"),
-    backgroundColor: "rgb(7, 54, 66)",
+    backgroundColor:
+      (store.get("backgroundColor") as string) ?? "rgb(7, 54, 66)",
+    center: !bounds,
+    x: bounds?.x,
+    y: bounds?.y,
+    width: bounds?.width,
+    height: bounds?.height,
+    fullscreenable: true,
+    fullscreen,
     webPreferences: {
       preload,
     },
   });
+
+  win.on("enter-full-screen", () => store.set("fullscreen", true));
+  win.on("leave-full-screen", () => store.set("fullscreen", false));
+  win.on("moved", () => store.set("bounds", win.getBounds()));
+  win.on("resized", () => store.set("bounds", win.getBounds()));
 
   if (process.env.VITE_DEV_SERVER_URL) {
     // electron-vite-vue#298
