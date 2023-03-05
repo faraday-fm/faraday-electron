@@ -23,9 +23,9 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
-    "electron": "^23.1.1",
+    "electron": "^23.1.2",
     "electron-builder": "^23.6.0",
-    "esbuild": "^0.17.10",
+    "esbuild": "^0.17.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.58.3",
@@ -39,7 +39,7 @@
     "node": "^14.18.0 || >=16.0.0"
   },
   "dependencies": {
-    "@far-more/web-ui": "^1.10.3",
+    "@far-more/web-ui": "^1.10.10",
     "@monaco-editor/react": "^4.4.6",
     "chokidar": "^3.5.3",
     "monaco-editor": "^0.36.1"

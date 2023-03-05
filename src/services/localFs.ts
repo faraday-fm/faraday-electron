@@ -48,76 +48,55 @@ localFsApi.onFsEvent(({ id, events }) => {
 let nextId = 0;
 
 export const localFs: FileSystemProvider = {
-  async watch(
-    url: string,
-    listener: (events: FileChangeEvent[]) => void,
-    options: {
-      recursive: boolean;
-      excludes: string[];
-      signal?: AbortSignal | undefined;
-    }
-  ) {
+  async watch(path, watcher, options) {
     const id = nextId++;
-    watchers.set(id, listener);
-    await invokeFsOp(id, { cmd: "watch", url, options }, options.signal);
+    watchers.set(id, watcher);
+    await invokeFsOp(id, { cmd: "watch", path, options }, options?.signal);
     watchers.delete(id);
   },
-  readDirectory(
-    url: string,
-    signal?: AbortSignal | undefined
-  ): Promise<FsEntry[]> {
-    return invokeFsOp(nextId++, { cmd: "readDirectory", url }, signal);
-  },
-  createDirectory(url: string, signal?: AbortSignal): void | Promise<void> {
-    return invokeFsOp(nextId++, { cmd: "createDirectory", url }, signal);
-  },
-  readFile(
-    url: string,
-    signal?: AbortSignal
-  ): Uint8Array | Promise<Uint8Array> {
-    return invokeFsOp(nextId++, { cmd: "readFile", url }, signal);
-  },
-  writeFile(
-    url: string,
-    content: Uint8Array,
-    options: { create: boolean; overwrite: boolean; signal?: AbortSignal }
-  ): void | Promise<void> {
+  readDirectory(path, options): Promise<FsEntry[]> {
     return invokeFsOp(
       nextId++,
-      { cmd: "writeFile", url, content, options },
-      options.signal
+      { cmd: "readDirectory", path },
+      options?.signal
     );
   },
-  delete(
-    url: string,
-    options: { recursive: boolean; signal?: AbortSignal }
-  ): void | Promise<void> {
+  createDirectory(path, options): void | Promise<void> {
     return invokeFsOp(
       nextId++,
-      { cmd: "delete", url, options },
-      options.signal
+      { cmd: "createDirectory", path },
+      options?.signal
     );
   },
-  rename(
-    oldUrl: string,
-    newUrl: string,
-    options: { overwrite: boolean; signal?: AbortSignal }
-  ): void | Promise<void> {
+  readFile(path, options): Uint8Array | Promise<Uint8Array> {
+    return invokeFsOp(nextId++, { cmd: "readFile", path }, options?.signal);
+  },
+  writeFile(path, content, options): void | Promise<void> {
     return invokeFsOp(
       nextId++,
-      { cmd: "rename", oldUrl, newUrl, options },
-      options.signal
+      { cmd: "writeFile", path, content, options },
+      options?.signal
     );
   },
-  copy(
-    source: string,
-    destination: string,
-    options: { overwrite: boolean; signal?: AbortSignal }
-  ): void | Promise<void> {
+  delete(path, options): void | Promise<void> {
+    return invokeFsOp(
+      nextId++,
+      { cmd: "delete", path, options },
+      options?.signal
+    );
+  },
+  rename(oldPath, newPath, options): void | Promise<void> {
+    return invokeFsOp(
+      nextId++,
+      { cmd: "rename", oldPath, newPath, options },
+      options?.signal
+    );
+  },
+  copy(source, destination, options): void | Promise<void> {
     return invokeFsOp(
       nextId++,
       { cmd: "copy", source, destination, options },
-      options.signal
+      options?.signal
     );
   },
 };

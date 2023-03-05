@@ -2,46 +2,46 @@ import { FileChangeEvent } from "@far-more/web-ui";
 
 export type FsOperationWatch = {
   cmd: "watch";
-  url: string;
-  options: { recursive: boolean; excludes: string[] };
+  path: string;
+  options?: { recursive?: boolean; excludes?: string[] };
 };
 
 export type FsOperationWatchStop = { cmd: "watch.stop"; watchId: number };
 
-export type FsOperationReadDirectory = { cmd: "readDirectory"; url: string };
+export type FsOperationReadDirectory = { cmd: "readDirectory"; path: string };
 
 export type FsOperationCreateDirectory = {
   cmd: "createDirectory";
-  url: string;
+  path: string;
 };
 
-export type FsOperationReadFile = { cmd: "readFile"; url: string };
+export type FsOperationReadFile = { cmd: "readFile"; path: string };
 
 export type FsOperationWriteFile = {
   cmd: "writeFile";
-  url: string;
+  path: string;
   content: Uint8Array;
-  options: { create: boolean; overwrite: boolean };
+  options?: { create?: boolean; overwrite?: boolean };
 };
 
 export type FsOperationDelete = {
   cmd: "delete";
-  url: string;
-  options: { recursive: boolean };
+  path: string;
+  options?: { recursive?: boolean };
 };
 
 export type FsOperationRename = {
   cmd: "rename";
-  oldUrl: string;
-  newUrl: string;
-  options: { overwrite: boolean };
+  oldPath: string;
+  newPath: string;
+  options?: { overwrite?: boolean };
 };
 
 export type FsOperationCopy = {
   cmd: "copy";
   source: string;
   destination: string;
-  options: { overwrite: boolean };
+  options?: { overwrite?: boolean };
 };
 
 export type FsOperation =

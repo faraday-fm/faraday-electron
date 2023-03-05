@@ -4,8 +4,8 @@ import { ipcMain, WebContents } from "electron";
 import fs from "fs";
 import { FsOperation } from "types/shared";
 
-function getPath(url: string) {
-  return decodeURI(new URL(url).pathname);
+function getPath(path: string) {
+  return "/" + path;
 }
 
 const pendingOperations = new Map<number, AbortController>();
@@ -41,11 +41,6 @@ function eventNameToFileChangeType(
   }
 }
 
-function getEntryName(url: URL | string) {
-  const path = typeof url === "string" ? url : url.pathname;
-  return path.substring(path.lastIndexOf("/") + 1);
-}
-
 export function initFsHook() {
   ipcMain.on(
     "fs",
@@ -61,7 +56,7 @@ export function initFsHook() {
           ): void => {
             const ev: FileChangeEvent = {
               type: eventNameToFileChangeType(eventName),
-              url: path,
+              path,
               entry: {
                 name: path,
                 size: stats?.size,
@@ -80,11 +75,11 @@ export function initFsHook() {
             });
           };
 
-          const watcher = chokidar.watch(getPath(operation.url) + "*", {
+          const watcher = chokidar.watch(getPath(operation.path) + "/*", {
             depth: operation.options.recursive ? undefined : 0,
             ignored: operation.options.excludes,
             alwaysStat: true,
-            cwd: getPath(operation.url),
+            cwd: getPath(operation.path),
             persistent: true,
             // awaitWriteFinish: true,
             // followSymlinks: false,
@@ -103,7 +98,7 @@ export function initFsHook() {
           watcher.on("error", (err) => console.error(err));
           break;
         case "readDirectory":
-          fs.readdir(getPath(operation.url), (err, files) => {
+          fs.readdir(getPath(operation.path), (err, files) => {
             if (err) {
               finishOp(sender, id, err, undefined);
               return;
@@ -111,11 +106,11 @@ export function initFsHook() {
             const result = files.map((e) => {
               try {
                 let stat = fs.statSync(
-                  decodeURI(new URL(e, operation.url).pathname)
+                  decodeURI(new URL(e, operation.path).pathname)
                 );
                 if (stat.isFile() && stat.isSymbolicLink()) {
                   const link = fs.readlinkSync(
-                    decodeURI(new URL(e, operation.url).pathname)
+                    decodeURI(new URL(e, operation.path).pathname)
                   );
                   stat = fs.statSync(link);
                 }
@@ -139,30 +134,30 @@ export function initFsHook() {
           });
           break;
         case "createDirectory":
-          fs.mkdir(getPath(operation.url), (err) => finishOp(sender, id, err));
+          fs.mkdir(getPath(operation.path), (err) => finishOp(sender, id, err));
           break;
         case "readFile":
-          fs.readFile(getPath(operation.url), { signal }, (err, data) =>
+          fs.readFile(getPath(operation.path), { signal }, (err, data) =>
             finishOp(sender, id, err, data)
           );
           break;
         case "writeFile":
           fs.writeFile(
-            getPath(operation.url),
+            getPath(operation.path),
             operation.content,
             { signal },
             (err) => finishOp(sender, id, err)
           );
           break;
         case "delete":
-          fs.rm(getPath(operation.url), operation.options, (err) =>
+          fs.rm(getPath(operation.path), operation.options, (err) =>
             finishOp(sender, id, err)
           );
           break;
         case "rename":
           fs.rename(
-            getPath(operation.oldUrl),
-            getPath(operation.newUrl),
+            getPath(operation.oldPath),
+            getPath(operation.newPath),
             (err) => finishOp(sender, id, err)
           );
           break;
