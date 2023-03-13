@@ -1,12 +1,27 @@
-import { rmSync } from "node:fs";
+import { rmSync, createReadStream } from "node:fs";
 import path from "node:path";
-import { defineConfig } from "vite";
+import { defineConfig, Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import electron from "vite-electron-plugin";
 import { customStart, loadViteEnv } from "vite-electron-plugin/plugin";
 import renderer from "vite-plugin-electron-renderer";
+import extract from "extract-zip";
 import pkg from "./package.json";
 
+function unzipPlugin({
+  source,
+  destination,
+}: {
+  source: string;
+  destination: string;
+}): Plugin {
+  return {
+    name: "vite-plugin-unzip",
+    buildStart: async () => {
+      await extract(source, { dir: destination });
+    },
+  };
+}
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   rmSync("dist-electron", { recursive: true, force: true });
@@ -24,6 +39,11 @@ export default defineConfig(({ command }) => {
       },
     },
     plugins: [
+      unzipPlugin({
+        source: path.join(__dirname, "src/assets/icons.zip"),
+        destination: path.join(__dirname, "src/assets"),
+      }),
+
       react(),
       electron({
         include: ["electron"],

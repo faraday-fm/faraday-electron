@@ -1,21 +1,21 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@far-more/web-ui': ^1.10.15
+  '@far-more/web-ui': ^1.11.3
   '@monaco-editor/react': ^4.4.6
   '@playwright/test': ^1.31.2
   '@types/react': ^18.0.28
   '@types/react-dom': ^18.0.11
   '@vitejs/plugin-react': ^3.1.0
   chokidar: ^3.5.3
-  electron: ^23.1.2
+  electron: 23.1.3
   electron-builder: ^23.6.0
   electron-store: ^8.1.0
   esbuild: ^0.17.11
+  extract-zip: ^2.0.1
   monaco-editor: ^0.36.1
   react: ^18.2.0
   react-dom: ^18.2.0
-  sass: ^1.58.3
   typescript: ^4.9.5
   vite: ^4.1.4
   vite-electron-plugin: ^0.8.2
@@ -23,7 +23,7 @@ specifiers:
   vite-plugin-electron-renderer: ^0.12.1
 
 dependencies:
-  '@far-more/web-ui': 1.10.15_wkgbi54btsxvo5wjc3crn6xe3i
+  '@far-more/web-ui': 1.11.3_wkgbi54btsxvo5wjc3crn6xe3i
   '@monaco-editor/react': 4.4.6_waewrrayshn643ztij6zbniufy
   chokidar: 3.5.3
   electron-store: 8.1.0
@@ -34,14 +34,14 @@ devDependencies:
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
   '@vitejs/plugin-react': 3.1.0_vite@4.1.4
-  electron: 23.1.2
+  electron: 23.1.3
   electron-builder: 23.6.0
   esbuild: 0.17.11
+  extract-zip: 2.0.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  sass: 1.58.3
   typescript: 4.9.5
-  vite: 4.1.4_sass@1.58.3
+  vite: 4.1.4
   vite-electron-plugin: 0.8.2_esbuild@0.17.11
   vite-plugin-electron: 0.11.1
   vite-plugin-electron-renderer: 0.12.1
@@ -753,8 +753,8 @@ packages:
     dev: true
     optional: true
 
-  /@far-more/web-ui/1.10.15_wkgbi54btsxvo5wjc3crn6xe3i:
-    resolution: {integrity: sha512-OnljNSQuKsuYw4TRU8JmETgawo6DD9lPLzFhK7kpLFxbl2X6g8qncA6CcGWa2k08kpS0iiGtC6Tp5th7KdCZVw==}
+  /@far-more/web-ui/1.11.3_wkgbi54btsxvo5wjc3crn6xe3i:
+    resolution: {integrity: sha512-2Hm5Sbv1dtWvbQH82+HKBvg5tYSFG42jvuXRHsY7wSAjL6SQQmpsPApH5zNoEHhXAoFfgxBpaldJFyjroGeCKg==}
     peerDependencies:
       '@monaco-editor/react': ^4.4.6
       react: '>=18'
@@ -764,8 +764,10 @@ packages:
       '@reduxjs/toolkit': 1.9.3_k4ae6lp43ej6mezo3ztvx6pykq
       ansi-colors: 4.1.3
       deepmerge: 4.3.0
-      focus-trap-react: 10.1.0_biqbaboplfbrettd7655fr4n2y
+      focus-trap-react: 10.1.1_biqbaboplfbrettd7655fr4n2y
+      is-promise: 4.0.0
       json5: 2.2.3
+      linq: 4.0.1
       list: 2.0.19
       parsimmon: 1.18.1
       react: 18.2.0
@@ -897,7 +899,7 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
-      '@types/node': 18.14.6
+      '@types/node': 18.15.1
       playwright-core: 1.31.2
     optionalDependencies:
       fsevents: 2.3.2
@@ -944,7 +946,7 @@ packages:
     dependencies:
       '@types/http-cache-semantics': 4.0.1
       '@types/keyv': 3.1.4
-      '@types/node': 16.18.14
+      '@types/node': 18.15.1
       '@types/responselike': 1.0.0
     dev: true
 
@@ -956,7 +958,7 @@ packages:
   /@types/fs-extra/9.0.13:
     resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
     dependencies:
-      '@types/node': 18.14.6
+      '@types/node': 18.15.1
     dev: true
 
   /@types/glob/7.2.0:
@@ -964,7 +966,7 @@ packages:
     requiresBuild: true
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 18.14.6
+      '@types/node': 18.15.1
     dev: true
     optional: true
 
@@ -988,7 +990,7 @@ packages:
   /@types/keyv/3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 16.18.14
+      '@types/node': 18.15.1
     dev: true
 
   /@types/mdast/3.0.10:
@@ -1009,14 +1011,14 @@ packages:
     resolution: {integrity: sha512-wvzClDGQXOCVNU4APPopC2KtMYukaF1MN/W3xAmslx22Z4/IF1/izDMekuyoUlwfnDHYCIZGaj7jMwnJKBTxKw==}
     dev: true
 
-  /@types/node/18.14.6:
-    resolution: {integrity: sha512-93+VvleD3mXwlLI/xASjw0FzKcwzl3OdTCzm1LaRfqgS21gfFtK3zDXM5Op9TeeMsJVOaJ2VRDpT9q4Y3d0AvA==}
+  /@types/node/18.15.1:
+    resolution: {integrity: sha512-U2TWca8AeHSmbpi314QBESRk7oPjSZjDsR+c+H4ECC1l+kFgpZf8Ydhv3SJpPy51VyZHHqxlb6mTTqYNNRVAIw==}
     dev: true
 
   /@types/plist/3.0.2:
     resolution: {integrity: sha512-ULqvZNGMv0zRFvqn8/4LSPtnmN4MfhlPNtJCTpKuIIxGVGZ2rYWzFXrvEBoh9CVyqSE7D6YFRJ1hydLHI6kbWw==}
     dependencies:
-      '@types/node': 18.14.6
+      '@types/node': 18.15.1
       xmlbuilder: 15.1.1
     dev: true
     optional: true
@@ -1039,7 +1041,7 @@ packages:
   /@types/responselike/1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
     dependencies:
-      '@types/node': 16.18.14
+      '@types/node': 18.15.1
     dev: true
 
   /@types/scheduler/0.16.2:
@@ -1072,7 +1074,7 @@ packages:
     resolution: {integrity: sha512-Cn6WYCm0tXv8p6k+A8PvbDG763EDpBoTzHdA+Q/MF6H3sapGjCm9NzoaJncJS9tUKSuCoDs9XHxYYsQDgxR6kw==}
     requiresBuild: true
     dependencies:
-      '@types/node': 16.18.14
+      '@types/node': 18.15.1
     dev: true
     optional: true
 
@@ -1087,7 +1089,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.19.6_@babel+core@7.21.0
       magic-string: 0.27.0
       react-refresh: 0.14.0
-      vite: 4.1.4_sass@1.58.3
+      vite: 4.1.4
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1184,7 +1186,7 @@ packages:
       builder-util-runtime: 9.1.1
       chromium-pickle-js: 0.2.0
       debug: 4.3.4
-      ejs: 3.1.8
+      ejs: 3.1.9
       electron-osx-sign: 0.6.0
       electron-publish: 23.6.0
       form-data: 4.0.0
@@ -1329,8 +1331,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001460
-      electron-to-chromium: 1.4.320
+      caniuse-lite: 1.0.30001465
+      electron-to-chromium: 1.4.328
       node-releases: 2.0.10
       update-browserslist-db: 1.0.10_browserslist@4.21.5
     dev: true
@@ -1427,8 +1429,8 @@ packages:
     resolution: {integrity: sha512-dU+Tx2fsypxTgtLoE36npi3UqcjSSMNYfkqgmoEhtZrraP5VWq0K7FkWVTYa8eMPtnU/G2txVsfdCJTn9uzpuQ==}
     dev: false
 
-  /caniuse-lite/1.0.30001460:
-    resolution: {integrity: sha512-Bud7abqjvEjipUkpLs4D7gR0l8hBYBHoa+tGtKJHvT2AYzLp1z7EmVkUT4ERpVUfca8S2HGIVs883D8pUH1ZzQ==}
+  /caniuse-lite/1.0.30001465:
+    resolution: {integrity: sha512-HvjgL3MYAJjceTDCcjRnQGjwUz/5qec9n7JPOzUursUoOTIsYCSDOb1l7RsnZE8mjbxG78zVRCKfrBXyvChBag==}
     dev: true
 
   /ccount/2.0.1:
@@ -1773,8 +1775,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /ejs/3.1.8:
-    resolution: {integrity: sha512-/sXZeMlhS0ArkfX2Aw780gJzXSMPnKjtspYZv+f3NiKLlubezAHDU5+9xz6gd3/NhG3txQCo6xlglmTS+oTGEQ==}
+  /ejs/3.1.9:
+    resolution: {integrity: sha512-rC+QVNMJWv+MtPgkt0y+0rVEIdbtxVADApW9JXrUVlzHetgcyczP/E7DJmWJ4fJCZF2cPcBk0laWO9ZHMG3DmQ==}
     engines: {node: '>=0.10.0'}
     hasBin: true
     dependencies:
@@ -1839,12 +1841,12 @@ packages:
       type-fest: 2.19.0
     dev: false
 
-  /electron-to-chromium/1.4.320:
-    resolution: {integrity: sha512-h70iRscrNluMZPVICXYl5SSB+rBKo22XfuIS1ER0OQxQZpKTnFpuS6coj7wY9M/3trv7OR88rRMOlKmRvDty7Q==}
+  /electron-to-chromium/1.4.328:
+    resolution: {integrity: sha512-DE9tTy2PNmy1v55AZAO542ui+MLC2cvINMK4P2LXGsJdput/ThVG9t+QGecPuAZZSgC8XoI+Jh9M1OG9IoNSCw==}
     dev: true
 
-  /electron/23.1.2:
-    resolution: {integrity: sha512-ajE6xzIwH7swf8TlTU5WklDqpI3mPj4Am6690YrpCXzcp+E+dmMBXIajUUNt4joDrFhJC/lC6ZqDS2Q1BApKgQ==}
+  /electron/23.1.3:
+    resolution: {integrity: sha512-MNjuUS2K6/OxlJ0zTC77djo1R3xM038v1kUunvNFgDMZHYKpSOzOMNsPiwM2BGp+uZbkUb0nTnYafxXrM8H16w==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
     requiresBuild: true
@@ -2028,21 +2030,21 @@ packages:
       locate-path: 3.0.0
     dev: false
 
-  /focus-trap-react/10.1.0_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-mAUw9lrcZbMz/KZZdU55TuwHp5991hES7z7WKokopzIsRC5cTmbMUXRIhN7ZNPW4Mt7ULAH+gVjm0v4e2kN4/Q==}
+  /focus-trap-react/10.1.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-OtLeSIQPKFzMzbLHkGtfZYwGLMhTRHd3CDhfyd0DDx8tvXzlgpseClDiuiKoiIHZtdjsbXTfTmUuuLKaxrwSyQ==}
     peerDependencies:
       prop-types: ^15.8.1
       react: '>=16.3.0'
       react-dom: '>=16.3.0'
     dependencies:
-      focus-trap: 7.3.1
+      focus-trap: 7.4.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       tabbable: 6.1.1
     dev: false
 
-  /focus-trap/7.3.1:
-    resolution: {integrity: sha512-bX/u4FJ+F0Pp6b/8Q9W8Br/JaLJ7rrhOJAzai9JU8bh4BPdOjEATy4pxHcbBBxFjPN4d1oHy7/KqknEdOetm9w==}
+  /focus-trap/7.4.0:
+    resolution: {integrity: sha512-yI7FwUqU4TVb+7t6PaQ3spT/42r/KLEi8mtdGoQo2li/kFzmu9URmalTvw7xCCJtSOyhBxscvEAmvjeN9iHARg==}
     dependencies:
       tabbable: 6.1.1
     dev: false
@@ -2305,10 +2307,6 @@ packages:
     resolution: {integrity: sha512-eY+Y0qcsB4TZKwgQzLaE/lqYMlKhv5J9dyd2RhhtGhNo2njPXDqU9XPfcNfa3MIDsdtZt5KlkIsirlo4dHsWdQ==}
     dev: false
 
-  /immutable/4.2.4:
-    resolution: {integrity: sha512-WDxL3Hheb1JkRN3sQkyujNlL/xRjAo3rJtaU5xeufUauG66JdMr32bLj4gF+vWl84DIA3Zxw7tiAjneYzRRw+w==}
-    dev: true
-
   /inflight/1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
     dependencies:
@@ -2375,6 +2373,10 @@ packages:
   /is-plain-obj/4.1.0:
     resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
     engines: {node: '>=12'}
+    dev: false
+
+  /is-promise/4.0.0:
+    resolution: {integrity: sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==}
     dev: false
 
   /isbinaryfile/3.0.3:
@@ -2477,6 +2479,10 @@ packages:
   /lib-esm/0.3.0:
     resolution: {integrity: sha512-P7YcG7OnoaGL2h4j46g/m0P2xHMXlYf+0iCDvVrEfzUVxLe+abytgd2VjUhj9puqEgqRGEDbT504YWj75jHacA==}
     dev: true
+
+  /linq/4.0.1:
+    resolution: {integrity: sha512-Apjyhhtra/JMcJZT+RQUGU8lO5jhfKNAKA/A8TFnL39u4JyvTAAvwe8J090St4BVFEldI2/Lh/5RdUFNALTI3g==}
+    dev: false
 
   /list/2.0.19:
     resolution: {integrity: sha512-nnVaRp4RaMAQkCpypTThsdxKqgPMiSwJq93eAm2/IbpUa8sd04XKBhkKu+bMk63HmdjK8b8Cuh4xARHWX2ye/Q==}
@@ -3000,8 +3006,8 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /minipass/4.2.4:
-    resolution: {integrity: sha512-lwycX3cBMTvcejsHITUgYj6Gy6A7Nh4Q6h9NP4sTHY1ccJlC7yKzDmiShEHsJ16Jf1nKGDEaiHxiltsJEvk0nQ==}
+  /minipass/4.2.5:
+    resolution: {integrity: sha512-+yQl7SX3bIT83Lhb4BVorMAHVuqsskxRdlmO9kTpyukp8vsm2Sn/fUOV9xlnG8/a5JsypJzap21lz/y3FBMJ8Q==}
     engines: {node: '>=8'}
     dev: true
 
@@ -3452,8 +3458,8 @@ packages:
     dev: true
     optional: true
 
-  /rollup/3.18.0:
-    resolution: {integrity: sha512-J8C6VfEBjkvYPESMQYxKHxNOh4A5a3FlP+0BETGo34HEcE4eTlgCrO2+eWzlu2a/sHs2QUkZco+wscH7jhhgWg==}
+  /rollup/3.19.1:
+    resolution: {integrity: sha512-lAbrdN7neYCg/8WaoWn/ckzCtz+jr70GFfYdlf50OF7387HTg+wiuiqJRFYawwSPpqfqDNYqK7smY/ks2iAudg==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -3481,16 +3487,6 @@ packages:
     resolution: {integrity: sha512-y/52Mcy7aw3gRm7IrcGDFx/bCk4AhRh2eI9luHOQM86nZsqwiRkkq2GekHXBBD+SmPidc8i2PqtYZl+pWJ8Oeg==}
     dependencies:
       truncate-utf8-bytes: 1.0.2
-    dev: true
-
-  /sass/1.58.3:
-    resolution: {integrity: sha512-Q7RaEtYf6BflYrQ+buPudKR26/lH+10EmO9bBqbmPh/KeLqv8bjpTNqxe71ocONqXq+jYiCbpPUmQMS+JJPk4A==}
-    engines: {node: '>=12.0.0'}
-    hasBin: true
-    dependencies:
-      chokidar: 3.5.3
-      immutable: 4.2.4
-      source-map-js: 1.0.2
     dev: true
 
   /sax/1.2.4:
@@ -3688,7 +3684,7 @@ packages:
     dependencies:
       chownr: 2.0.0
       fs-minipass: 2.1.0
-      minipass: 4.2.4
+      minipass: 4.2.5
       minizlib: 2.1.2
       mkdirp: 1.0.4
       yallist: 4.0.0
@@ -3917,7 +3913,7 @@ packages:
     resolution: {integrity: sha512-pi9Wy4KCGjKIRvp7/5VUOT8BYEAJdZrpy3gI+GhGc5vYs2V9yPxLOtfCqNfSTYqH3uM6hYY6MyifFVku3Wg+2A==}
     dev: true
 
-  /vite/4.1.4_sass@1.58.3:
+  /vite/4.1.4:
     resolution: {integrity: sha512-3knk/HsbSTKEin43zHu7jTwYWv81f8kgAL99G5NWBcA1LKvtvcVAC4JjBH1arBunO9kQka+1oGbrMKOjk4ZrBg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -3945,8 +3941,7 @@ packages:
       esbuild: 0.16.17
       postcss: 8.4.21
       resolve: 1.22.1
-      rollup: 3.18.0
-      sass: 1.58.3
+      rollup: 3.19.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true

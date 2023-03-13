@@ -11,7 +11,7 @@
           id: "panel1",
           type: "file-panel",
           flex: 1.6,
-          path: "far-more:/",
+          path: "file:/Users/mike",
           view: {
             type: "condensed",
             columnDef: { field: "name", name: "Name" },
@@ -27,20 +27,22 @@
           id: "panel2",
           type: "file-panel",
           flex: 1,
-          path: "file:/Users/mike",
+          path: "far-more:/",
           view: {
-            type: "full",
+            /*type: "full",
             columnDefs: [
               { field: "name", name: "Name", width: "1fr" },
               { field: "size", name: "Size" },
-            ],
+            ],*/
+            type: "condensed",
+            columnDef: { field: "name", name: "Name" },
           },
           // when: "quickView.visible",
         },
         {
           id: "panel3",
           type: "quick-view",
-          // when: "filePanel.firstItem",
+          //when: "!filePanel.firstItem",
         },
       ],
     },
