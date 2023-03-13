@@ -1,6 +1,6 @@
 {
   "name": "far-more-electron",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "dist-electron/main/index.js",
   "description": "Far More file manager.",
   "author": "Mikhail Isupov <lam0x86@gmail.com>",
