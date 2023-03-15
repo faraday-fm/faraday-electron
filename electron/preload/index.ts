@@ -1,4 +1,4 @@
-import { FileChangeEvent } from "@far-more/web-ui";
+import { FileChangeEvent } from "@frdy/web-ui";
 import { contextBridge, ipcRenderer } from "electron";
 import { FsOperation, LocalFsApi } from "types/shared";
 

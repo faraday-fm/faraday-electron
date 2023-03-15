@@ -1,4 +1,4 @@
-import { FileChangeEvent } from "@far-more/web-ui";
+import { FileChangeEvent } from "@frdy/web-ui";
 
 export type FsOperationWatch = {
   cmd: "watch";

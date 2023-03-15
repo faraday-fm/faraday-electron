@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@far-more/web-ui': ^1.11.5
+  '@frdy/web-ui': ^1.12.0
   '@monaco-editor/react': ^4.4.6
   '@playwright/test': ^1.31.2
   '@types/react': ^18.0.28
@@ -23,7 +23,7 @@ specifiers:
   vite-plugin-electron-renderer: ^0.12.1
 
 dependencies:
-  '@far-more/web-ui': 1.11.5_wkgbi54btsxvo5wjc3crn6xe3i
+  '@frdy/web-ui': 1.12.0_wkgbi54btsxvo5wjc3crn6xe3i
   '@monaco-editor/react': 4.4.6_waewrrayshn643ztij6zbniufy
   chokidar: 3.5.3
   electron-store: 8.1.0
@@ -753,8 +753,8 @@ packages:
     dev: true
     optional: true
 
-  /@far-more/web-ui/1.11.5_wkgbi54btsxvo5wjc3crn6xe3i:
-    resolution: {integrity: sha512-xS/au3ZEn/Pk1N4oNuJ3I+Dz9EYPyf8cThQfNR7dUxbl7f1CMDB12y8t9Xo9v5SVSwtW0sAdp7IxovcDeyv16g==}
+  /@frdy/web-ui/1.12.0_wkgbi54btsxvo5wjc3crn6xe3i:
+    resolution: {integrity: sha512-+wZt8iAhltGcpb2VTC/dFq54JPbMN+TyMdkrpGULZRtOdABhzobzHo8eAN5YkaZbpvW+TwwMQsnF1+tlpnq55w==}
     peerDependencies:
       '@monaco-editor/react': ^4.4.6
       react: '>=18'
@@ -777,7 +777,7 @@ packages:
       react-redux: 8.0.5_3xleytyzprlgycb2ded54tx72i
       react-resize-observer: 1.1.1_react@18.2.0
       remark-gfm: 3.0.1
-      styled-components: 5.3.8_biqbaboplfbrettd7655fr4n2y
+      styled-components: 5.3.9_biqbaboplfbrettd7655fr4n2y
       use-resize-observer: 9.1.0_biqbaboplfbrettd7655fr4n2y
       xterm: 5.1.0
       xterm-addon-fit: 0.6.0_xterm@5.1.0
@@ -1259,7 +1259,7 @@ packages:
     engines: {node: '>=10.12.0'}
     dev: false
 
-  /babel-plugin-styled-components/2.0.7_styled-components@5.3.8:
+  /babel-plugin-styled-components/2.0.7_styled-components@5.3.9:
     resolution: {integrity: sha512-i7YhvPgVqRKfoQ66toiZ06jPNA3p6ierpfUuEWxNF+fV27Uv5gxBkf8KZLHUCc1nFA9j6+80pYoIpqCeyW3/bA==}
     peerDependencies:
       styled-components: '>= 2'
@@ -1269,7 +1269,7 @@ packages:
       babel-plugin-syntax-jsx: 6.18.0
       lodash: 4.17.21
       picomatch: 2.3.1
-      styled-components: 5.3.8_biqbaboplfbrettd7655fr4n2y
+      styled-components: 5.3.9_biqbaboplfbrettd7655fr4n2y
     dev: false
 
   /babel-plugin-syntax-jsx/6.18.0:
@@ -3624,10 +3624,9 @@ packages:
       inline-style-parser: 0.1.1
     dev: false
 
-  /styled-components/5.3.8_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-6jQrlvaJQ16uWVVO0rBfApaTPItkqaG32l3746enNZzpMDxMvzmHzj8rHUg39bvVtom0Y8o8ZzWuchEXKGjVsg==}
+  /styled-components/5.3.9_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-Aj3kb13B75DQBo2oRwRa/APdB5rSmwUfN5exyarpX+x/tlM/rwZA2vVk2vQgVSP6WKaZJHWwiFrzgHt+CLtB4A==}
     engines: {node: '>=10'}
-    requiresBuild: true
     peerDependencies:
       react: '>= 16.8.0'
       react-dom: '>= 16.8.0'
@@ -3638,7 +3637,7 @@ packages:
       '@emotion/is-prop-valid': 1.2.0
       '@emotion/stylis': 0.8.5
       '@emotion/unitless': 0.7.5
-      babel-plugin-styled-components: 2.0.7_styled-components@5.3.8
+      babel-plugin-styled-components: 2.0.7_styled-components@5.3.9
       css-to-react-native: 3.2.0
       hoist-non-react-statics: 3.3.2
       react: 18.2.0

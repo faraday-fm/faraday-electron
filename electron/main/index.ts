@@ -49,7 +49,7 @@ async function createWindow() {
   const bounds = store.get("bounds") as Rectangle | undefined;
   const fullscreen = store.get("fullscreen") as boolean | undefined;
   win = new BrowserWindow({
-    title: "Far More",
+    title: "Faraday",
     icon: join(process.env.PUBLIC, "favicon.ico"),
     backgroundColor:
       (store.get("backgroundColor") as string) ?? "rgb(7, 54, 66)",

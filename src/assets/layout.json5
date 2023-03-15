@@ -27,7 +27,7 @@
           id: "panel2",
           type: "file-panel",
           flex: 1,
-          path: "far-more:/",
+          path: "faraday:/",
           view: {
             /*type: "full",
             columnDefs: [

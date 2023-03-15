@@ -1,20 +1,20 @@
-import { FarMore, FarMoreHost } from "@far-more/web-ui";
+import { Faraday, FaradayHost } from "@frdy/web-ui";
 import { localFs } from "./services/localFs";
 
-// const farMoreFs = buildFarMoreFs();
+// const faradayFs = buildFaradayFs();
 
-const host: FarMoreHost = {
+const host: FaradayHost = {
   config: {
     isDesktop: () => false,
   },
-  farMoreFs: localFs(
-    "/Users/mike/github/far-more/far-more-electron/src/assets"
+  faradayFs: localFs(
+    "/Users/mike/github/faraday-fm/faraday-electron/src/assets"
   ),
   rootFs: localFs(""),
 };
 
 function App() {
-  return <FarMore host={host} />;
+  return <Faraday host={host} />;
 }
 
 export default App;

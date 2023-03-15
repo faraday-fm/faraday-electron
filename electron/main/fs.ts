@@ -1,4 +1,4 @@
-import { FileChangeEvent, FileChangeType, FsEntry } from "@far-more/web-ui";
+import { FileChangeEvent, FileChangeType, FsEntry } from "@frdy/web-ui";
 import chokidar from "chokidar";
 import { ipcMain, WebContents } from "electron";
 import fs from "node:fs/promises";
@@ -119,8 +119,7 @@ export function initFsApi() {
               const watcher = chokidar.watch(
                 isDir ? watchPath + "/*" : watchPath,
                 {
-                  depth: operation.options.recursive ? undefined : 0,
-                  ignored: operation.options.excludes,
+                  depth: 0,
                   alwaysStat: true,
                   cwd: watchPath,
                   persistent: true,

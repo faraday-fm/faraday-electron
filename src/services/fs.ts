@@ -1,19 +1,8 @@
-import { FileSystemProvider, InMemoryFsProvider } from "@far-more/web-ui";
-// import layout from "./far-more/layout.json5?raw";
-// import settings from "./far-more/settings.json5?raw";
+import { FileSystemProvider, InMemoryFsProvider } from "@frdy/web-ui";
 
 const encoder = new TextEncoder();
 
-function file(fs: FileSystemProvider, name: string, content: string) {
-  fs.writeFile(name, encoder.encode(content), {
-    create: true,
-    overwrite: false,
-  });
-}
-
-export function buildFarMoreFs() {
+export function buildFaradayFs() {
   const fs = new InMemoryFsProvider();
-  // file(fs, "layout.json", layout);
-  // file(fs, "settings.json", settings);
   return fs;
 }

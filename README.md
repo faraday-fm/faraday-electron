@@ -1,9 +1,8 @@
-# electron-vite-react
+# Faraday
 
-[![awesome-vite](https://awesome.re/mentioned-badge.svg)](https://github.com/vitejs/awesome-vite)
-![GitHub stars](https://img.shields.io/github/stars/far-more/far-more-electron?color=fa6470)
-![GitHub issues](https://img.shields.io/github/issues/far-more/far-more-electron?color=d8b22d)
-![GitHub license](https://img.shields.io/github/license/far-more/far-more-electron)
+![GitHub stars](https://img.shields.io/github/stars/faraday-fm/faraday-electron?color=fa6470)
+![GitHub issues](https://img.shields.io/github/issues/faraday-fm/faraday-electron?color=d8b22d)
+![GitHub license](https://img.shields.io/github/license/faraday-fm/faraday-electron)
 [![Required Node.JS >= 14.18.0 || >=16.0.0](https://img.shields.io/static/v1?label=node&message=14.18.0%20||%20%3E=16.0.0&logo=node.js&color=3f893e)](https://nodejs.org/about/releases)
 
 English
@@ -16,7 +15,7 @@ English
 💪 Supports Node.js API in the renderer process  
 🔩 Supports C/C++ native addons  
 🐞 Debugger configuration included  
-🖥 Easy to implement multiple windows  
+🖥 Easy to implement multiple windows
 
 ## 🛫 Quick start
 
@@ -28,7 +27,7 @@ pnpm dev
 ## 📂 Directory structure
 
 Familiar React application structure, just with `electron` folder on the top :wink:  
-*Files in this folder will be separated from your React application and built into `dist-electron`*  
+_Files in this folder will be separated from your React application and built into `dist-electron`_
 
 ```tree
 ├── electron                                 Electron-related code
@@ -46,7 +45,7 @@ Familiar React application structure, just with `electron` folder on the top :wi
 
 ## 🚨 Be aware
 
-This template integrates Node.js API to the renderer process by default. If you want to follow **Electron Security Concerns** you might want to disable this feature. You will have to expose needed API by yourself.  
+This template integrates Node.js API to the renderer process by default. If you want to follow **Electron Security Concerns** you might want to disable this feature. You will have to expose needed API by yourself.
 
 To get started, remove the option as shown below. This will [modify the Vite configuration and disable this feature](https://github.com/electron-vite/vite-plugin-electron-renderer#config-presets-opinionated).
 

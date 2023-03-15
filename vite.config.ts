@@ -29,13 +29,10 @@ export default defineConfig(({ command }) => {
   const sourcemap = command === "serve" || !!process.env.VSCODE_DEBUG;
 
   return {
-    optimizeDeps: command === "serve" && { exclude: ["@far-more/web-ui"] },
+    optimizeDeps: command === "serve" && { exclude: ["@frdy/web-ui"] },
     resolve: command === "serve" && {
       alias: {
-        "@far-more/web-ui": path.join(
-          __dirname,
-          "../web-ui/dist/far-more-web.esm.js"
-        ),
+        "@frdy/web-ui": path.join(__dirname, "../web-ui/dist/index.esm.js"),
       },
     },
     plugins: [
@@ -56,7 +53,7 @@ export default defineConfig(({ command }) => {
                 // Will start Electron via VSCode Debug
                 customStart(() =>
                   console.log(
-                    /* For `.vscode/.debug.script.mjs` */ "[startup] Electron App"
+                    /* For `.vscode/.debug.script.mjs` */ "[startup] Faraday"
                   )
                 ),
               ]

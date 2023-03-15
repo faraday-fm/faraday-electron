@@ -1,4 +1,4 @@
-import { FileChangeEvent, FileSystemProvider, FsEntry } from "@far-more/web-ui";
+import { FileChangeEvent, FileSystemProvider, FsEntry } from "@frdy/web-ui";
 import { FsOperation, LocalFsApi } from "types/shared";
 
 const localFsApi = (window as any).localFsApi as LocalFsApi;
