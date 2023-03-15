@@ -51,11 +51,7 @@ export const localFs: (root: string) => FileSystemProvider = (root) => ({
   async watch(path, watcher, options) {
     const id = nextId++;
     watchers.set(id, watcher);
-    await invokeFsOp(
-      id,
-      { cmd: "watch", path: root + path, options },
-      options?.signal
-    );
+    await invokeFsOp(id, { cmd: "watch", path: root + path }, options?.signal);
     watchers.delete(id);
   },
   readDirectory(path, options): Promise<FsEntry[]> {

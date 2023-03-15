@@ -3,7 +3,6 @@ import { FileChangeEvent } from "@far-more/web-ui";
 export type FsOperationWatch = {
   cmd: "watch";
   path: string;
-  options?: { recursive?: boolean; excludes?: string[] };
 };
 
 export type FsOperationWatchStop = { cmd: "watch.stop"; watchId: number };
