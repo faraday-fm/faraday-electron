@@ -7,9 +7,7 @@ const host: FaradayHost = {
   config: {
     isDesktop: () => false,
   },
-  faradayFs: localFs(
-    "/Users/mike/github/faraday-fm/faraday-electron/src/assets"
-  ),
+  faradayFs: localFs("/Users/mike/.faraday"),
   rootFs: localFs(""),
 };
 
