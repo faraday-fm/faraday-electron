@@ -3,6 +3,9 @@ import { contextBridge, ipcRenderer } from "electron";
 import { FsOperation, LocalFsApi } from "types/shared";
 
 const localFs: LocalFsApi = {
+  homedir() {
+    return ipcRenderer.invoke("fs.homedir");
+  },
   startOperation(id: number, operation: FsOperation) {
     ipcRenderer.send("fs", { id, operation });
   },

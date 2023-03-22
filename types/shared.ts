@@ -55,6 +55,7 @@ export type FsOperation =
   | FsOperationCopy;
 
 export type LocalFsApi = {
+  homedir(): Promise<string>;
   startOperation(id: number, operation: FsOperation): void;
   abortOperation(id: number): void;
   onOperationComplete(

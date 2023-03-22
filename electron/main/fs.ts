@@ -2,6 +2,7 @@ import { FileChangeEvent, FileChangeType, FsEntry } from "@frdy/web-ui";
 import chokidar from "chokidar";
 import { ipcMain, WebContents } from "electron";
 import fs from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import { Stats } from "fs";
 import { FsOperation } from "types/shared";
@@ -195,5 +196,8 @@ export function initFsApi() {
   );
   ipcMain.on("fs.abort", (_, id) => {
     pendingOperations.get(id)?.abort();
+  });
+  ipcMain.handle("fs.homedir", (_) => {
+    return os.homedir();
   });
 }
