@@ -1,11 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-<g transform="translate(5 0) skewX(-10)">
-<g style="stroke:#ffffff;stroke-width:2;stroke-linecap:round">
-  <line x1="7" y1="5" x2="25" y2="5" style="stroke:#ffff00" />
-
-  <!--line x1="7" y1="5" x2="14.5" y2="5" style="stroke:#ffff00" />
-  <line x1="17.5" y1="5" x2="25" y2="5" style="stroke:#ffff00" /-->
-
+<rect x="0" y="0" width="32" height="32" rx="6" style="fill:#004164;"/>
+<g style="stroke:#ffff00;stroke-width:2;stroke-linecap:round" transform="translate(4 0) skewX(-10)">
+  <line x1="7" y1="5" x2="23" y2="5" style="stroke:#ffff00" />
 <g>
   <line x1="7" y1="8" x2="8" y2="8"/>
   <line x1="7" y1="11" x2="8" y2="11"/>
@@ -16,15 +12,14 @@
   <line x1="7" y1="26" x2="8" y2="26"/>
 </g>
 
-<g style="stroke:#00ffff">
-    <line x1="11" y1="8" x2="25" y2="8" />
+<g style="stroke:#87c576">
+    <line x1="11" y1="8" x2="23" y2="8" />
     <line x1="11" y1="11" x2="13" y2="11" />
     <line x1="11" y1="14" x2="13" y2="14" />
     <line x1="11" y1="17" x2="17" y2="17" />
     <line x1="11" y1="20" x2="17" y2="20" />
     <line x1="11" y1="23" x2="13" y2="23" />
     <line x1="11" y1="26" x2="13" y2="26" />
-</g>
 </g>
 </g>
 </svg>
