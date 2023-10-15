@@ -4,6 +4,8 @@ import react from '@vitejs/plugin-react'
 import { Plugin } from 'vite'
 import path from 'node:path'
 import extract from 'extract-zip'
+// import { viteStaticCopy } from 'vite-plugin-static-copy'
+import copy from 'rollup-plugin-copy'
 
 function unzipPlugin({ source, destination }: { source: string; destination: string }): Plugin {
   return {
@@ -32,6 +34,14 @@ export default defineConfig({
       unzipPlugin({
         source: path.join(__dirname, 'src/renderer/assets/icons.zip'),
         destination: path.join(__dirname, 'src/renderer/assets')
+      }),
+      copy({
+        targets: [
+          {
+            src: 'node_modules/monaco-editor/min/vs/**/*',
+            dest: 'src/renderer/assets/monaco'
+          }
+        ]
       })
     ]
   }
